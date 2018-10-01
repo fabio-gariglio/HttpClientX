@@ -1,18 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
-    <metadata>
-        <!-- Required elements-->
-        <id>HttpClientX</id>
-        <version>1.0.0-alpha</version>
-        <description>Making extensible, composable and testable the most famous .Net HttpClient.</description>
-        <authors>Fabio Gariglio</authors>
-		<owners>Fabio Gariglio</owners>
-		<requireLicenseAcceptance>false</requireLicenseAcceptance>
-		<projectUrl>https://github.com/fabio-gariglio/HttpClientX</projectUrl>
-		<repository type="git" url="https://github.com/fabio-gariglio/HttpClientX.git" />
-		<tags>HttpClient extension composable<tags>
-		<dependencies>
-			<dependency id="System.Web.Http" version="4.0.0" />    
-        </dependencies>
-    </metadata>
+  <metadata>
+    <!-- Required elements-->
+    <id>HttpClientX</id>
+    <version>1.0.1-alpha</version>
+    <description>Making extensible, composable and testable the most famous .Net HttpClient.</description>
+    <authors>Fabio Gariglio</authors>
+    <owners>Fabio Gariglio</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <projectUrl>https://github.com/fabio-gariglio/HttpClientX</projectUrl>
+    <repository type="git" url="https://github.com/fabio-gariglio/HttpClientX.git" />
+    <tags>http client extension composable test</tags>
+  </metadata>
 </package>
