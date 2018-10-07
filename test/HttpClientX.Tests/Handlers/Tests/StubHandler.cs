@@ -12,7 +12,7 @@ namespace HttpClientX.Tests.Handlers.Tests
         // TODO: It shouldn't be necessary to define a constructor with a HttpMessageHandler parameter
         public StubHandler(HttpMessageHandler innerHandler)
         {
-            
+            ReceivedRequest = null;
         }
         
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
