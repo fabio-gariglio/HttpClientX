@@ -1,5 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Version>1.0.1</Version>
@@ -13,9 +12,7 @@
     <PackageProjectUrl>https://github.com/fabio-gariglio/HttpClientX</PackageProjectUrl>
     <Description>Making extensible, composable and testable the most famous .Net HttpClient</Description>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="System.Web.Http" Version="4.0.0" />
   </ItemGroup>
-
 </Project>

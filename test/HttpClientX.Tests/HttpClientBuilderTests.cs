@@ -1,5 +1,6 @@
 using System.Net.Http;
 using System.Threading.Tasks;
+using HttpClientX.Tests.Handlers;
 using NUnit.Framework;
 
 namespace HttpClientX.Tests
@@ -35,17 +36,30 @@ namespace HttpClientX.Tests
         }
 
         [Test]
-        public async Task It_should_be_possible_to_create_a_HttpClient_specifying_multiple_message_handlers()
+        public async Task It_should_be_possible_to_create_a_HttpClient_specifying_a_message_handler()
         {
             var httpClient = new HttpClientBuilder()
-                .Use<SetResponseHeaderMessageHandler>("first-header", "first-value")
-                .Use<SetResponseHeaderMessageHandler>("second-header", "second-value")
+                .Use<StubHandler>()
                 .Build();
 
-            var response = await httpClient.GetAsync("http://www.google.com");
+            var response = await httpClient.GetAsync("https://www.test.com");
+            
             Assert.That(response.IsSuccessStatusCode, Is.True);
-            Assert.That(response.Headers.Contains("first-header"), Is.True);
-            Assert.That(response.Headers.Contains("second-header"), Is.True);
+            Assert.That(StubHandler.ReceivedRequest, Is.Not.Null);
+        }
+        
+        [Test]
+        public async Task It_should_be_possible_to_invoke_message_handlers_based_on_the_order_of_definition()
+        {
+            var httpClient = new HttpClientBuilder()
+                .Use<FirstPassThroughHandler>()
+                .Use<SecondPassThroughHandler>()
+                .Use<StubHandler>()
+                .Build();
+
+            await httpClient.GetAsync("https://www.test.com");
+            
+            Assert.That(FirstPassThroughHandler.ExecutedDateTime, Is.LessThan(SecondPassThroughHandler.ExecutedDateTime));
         }
     }
 }

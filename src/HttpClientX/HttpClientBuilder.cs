@@ -10,19 +10,19 @@ namespace HttpClientX
     {
         private readonly IHttpMessageHandlerFactory _httpMessageHandlerFactory;
         private readonly HttpClientHandler _httpClientHandler;
-        private readonly Queue<HttpMessageHandlerFactoryMethod> _httpMessageHandlerFactoryMethods;
+        private readonly Stack<HttpMessageHandlerFactoryMethod> _httpMessageHandlerFactoryMethods;
 
         public HttpClientBuilder()
         {
             _httpMessageHandlerFactory = new HttpMessageHandlerFactory();
             _httpClientHandler = new HttpClientHandler();
-            _httpMessageHandlerFactoryMethods = new Queue<HttpMessageHandlerFactoryMethod>();
+            _httpMessageHandlerFactoryMethods = new Stack<HttpMessageHandlerFactoryMethod>();
         }
 
         public HttpClientBuilder Use<TMessageHandler>(params object[] arguments)
             where TMessageHandler : HttpMessageHandler
         {
-            _httpMessageHandlerFactoryMethods.Enqueue(innerHandler => CreateFactoryMethod<TMessageHandler>(innerHandler, arguments));
+            _httpMessageHandlerFactoryMethods.Push(innerHandler => CreateFactoryMethod<TMessageHandler>(innerHandler, arguments));
             
             return this;
         }
