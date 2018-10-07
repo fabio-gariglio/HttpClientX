@@ -5,7 +5,7 @@ namespace HttpClientX
 {
     internal class HttpMessageHandlerFactory : IHttpMessageHandlerFactory
     {
-        private static readonly Type _httpMessageHandlerType = typeof(HttpMessageHandler);
+        private static readonly Type HttpMessageHandlerType = typeof(HttpMessageHandler);
 
         public HttpMessageHandler Create(Type handlerType, params object[] arguments)
         {
@@ -18,9 +18,9 @@ namespace HttpClientX
 
         private static void EnsureIsHttpMessageHandlerType(Type handlerType)
         {
-            if (handlerType.IsSubclassOf(_httpMessageHandlerType)) return;
+            if (handlerType.IsSubclassOf(HttpMessageHandlerType)) return;
 
-            throw new InvalidOperationException($"{handlerType.Name} must inherit from {_httpMessageHandlerType.Name}");
+            throw new InvalidOperationException($"{handlerType.Name} must inherit from {HttpMessageHandlerType.Name}");
         }
     }
 }
