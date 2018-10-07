@@ -1,6 +1,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using HttpClientX.Tests.Handlers;
+using HttpClientX.Tests.Handlers.Tests;
 using NUnit.Framework;
 
 namespace HttpClientX.Tests

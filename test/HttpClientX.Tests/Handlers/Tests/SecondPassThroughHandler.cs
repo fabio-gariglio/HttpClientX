@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace HttpClientX.Tests.Handlers
+namespace HttpClientX.Tests.Handlers.Tests
 {
     public class SecondPassThroughHandler : DelegatingHandler
     {
