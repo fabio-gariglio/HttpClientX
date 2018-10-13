@@ -2,6 +2,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using HttpClientX.Tests.Handlers;
 using HttpClientX.Tests.Handlers.Tests;
+using NSubstitute;
 using NUnit.Framework;
 
 namespace HttpClientX.Tests
@@ -61,6 +62,23 @@ namespace HttpClientX.Tests
             await httpClient.GetAsync("https://www.test.com");
             
             Assert.That(FirstPassThroughHandler.ExecutedDateTime, Is.LessThan(SecondPassThroughHandler.ExecutedDateTime));
+        }
+
+        [Test]
+        public void It_should_be_possible_to_specify_a_custom()
+        {
+            var httpMessageHandlerFactory = Substitute.For<IHttpMessageHandlerFactory>();
+            
+            httpMessageHandlerFactory
+                .Create(typeof(StubHandler), Arg.Any<HttpMessageHandler>())
+                .Returns(new StubHandler(null));
+
+            var httpClient = new HttpClientBuilder()
+                .UseHandlerFactory(httpMessageHandlerFactory)
+                .Use<StubHandler>()
+                .Build();
+
+            httpMessageHandlerFactory.Received().Create(typeof(StubHandler), Arg.Any<object[]>());
         }
     }
 }

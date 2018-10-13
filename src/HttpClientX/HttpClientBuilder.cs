@@ -8,7 +8,7 @@ namespace HttpClientX
 
     public class HttpClientBuilder
     {
-        private readonly IHttpMessageHandlerFactory _httpMessageHandlerFactory;
+        private IHttpMessageHandlerFactory _httpMessageHandlerFactory;
         private readonly HttpClientHandler _httpClientHandler;
         private readonly Stack<HttpMessageHandlerFactoryMethod> _httpMessageHandlerFactoryMethods;
 
@@ -26,6 +26,13 @@ namespace HttpClientX
             
             return this;
         }
+        
+        public HttpClientBuilder UseHandlerFactory(IHttpMessageHandlerFactory httpMessageHandlerFactory)
+        {
+            _httpMessageHandlerFactory = httpMessageHandlerFactory;
+            
+            return this;
+        }
 
         public IHttpClient Build()
         {
@@ -38,6 +45,7 @@ namespace HttpClientX
 
             return new HttpClientWrapper(innerHandler);
         }
+        
         private HttpMessageHandler CreateFactoryMethod<TMessageHandler>(HttpMessageHandler innerHandler, params object[] arguments)
             where TMessageHandler : HttpMessageHandler
         {
