@@ -34,7 +34,7 @@ namespace HttpClientX
             return this;
         }
 
-        public IHttpClient Build()
+        public HttpClient Build()
         {
             HttpMessageHandler innerHandler = _httpClientHandler;
 

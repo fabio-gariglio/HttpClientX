@@ -13,7 +13,7 @@ namespace HttpClientX.Autofac.Tests
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterType<HttpMessageHandlerWithNoDependencies>();
 
-            var factory = new AutofacHttpMessageHandlerFactory(containerBuilder);
+            var factory = new AutofacHttpMessageHandlerFactory(containerBuilder.Build());
             var messageHandler = factory.Create(typeof(HttpMessageHandlerWithNoDependencies));
 
             Assert.That(messageHandler, Is.Not.Null);
@@ -25,7 +25,7 @@ namespace HttpClientX.Autofac.Tests
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterType<HttpMessageHandlerWithNoDependencies>();
 
-            var factory = new AutofacHttpMessageHandlerFactory(containerBuilder);
+            var factory = new AutofacHttpMessageHandlerFactory(containerBuilder.Build());
             var messageHandler = factory.Create(typeof(HttpMessageHandlerWithNoDependencies), new HttpClientHandler());
 
             Assert.That(messageHandler, Is.Not.Null);
@@ -37,7 +37,7 @@ namespace HttpClientX.Autofac.Tests
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterType<HttpMessageHandlerWithValueDependency>();
 
-            var factory = new AutofacHttpMessageHandlerFactory(containerBuilder);
+            var factory = new AutofacHttpMessageHandlerFactory(containerBuilder.Build());
             var messageHandler = factory.Create(typeof(HttpMessageHandlerWithValueDependency), "test-value");
 
             Assert.That(messageHandler, Is.Not.Null);
@@ -50,7 +50,7 @@ namespace HttpClientX.Autofac.Tests
             containerBuilder.RegisterType<HttpMessageHandlerWithNoDependencies>();
             containerBuilder.RegisterType<HttpMessageHandlerWithHandlerDependency>();
 
-            var factory = new AutofacHttpMessageHandlerFactory(containerBuilder);
+            var factory = new AutofacHttpMessageHandlerFactory(containerBuilder.Build());
             var messageHandler =
                 factory.Create(typeof(HttpMessageHandlerWithHandlerDependency), new HttpClientHandler());
 
@@ -64,7 +64,7 @@ namespace HttpClientX.Autofac.Tests
             containerBuilder.RegisterType<HttpMessageHandlerWithHandlerAndServiceDependency>();
             containerBuilder.RegisterType<ServiceImplementation>().As<IService>();
 
-            var factory = new AutofacHttpMessageHandlerFactory(containerBuilder);
+            var factory = new AutofacHttpMessageHandlerFactory(containerBuilder.Build());
             var messageHandler = factory.Create(typeof(HttpMessageHandlerWithHandlerAndServiceDependency),
                 (HttpMessageHandler) new HttpClientHandler());
 

@@ -7,17 +7,17 @@ namespace HttpClientX.Autofac
 {
     public class AutofacHttpMessageHandlerFactory : IHttpMessageHandlerFactory
     {
-        private readonly IComponentContext _componentContext; 
+        private readonly IComponentContext _context;
         
-        public AutofacHttpMessageHandlerFactory(ContainerBuilder containerBuilder)
+        public AutofacHttpMessageHandlerFactory(IComponentContext context)
         {
-            _componentContext = containerBuilder.Build();
+            _context = context;
         }
         
         public HttpMessageHandler Create(Type handlerType, params object[] arguments)
         {
             var parameters = arguments.Select(AsTypedParameter);
-            var httpMessageHandler = (HttpMessageHandler) _componentContext.Resolve(handlerType, parameters);
+            var httpMessageHandler = (HttpMessageHandler) _context.Resolve(handlerType, parameters);
             
             return httpMessageHandler;
         }

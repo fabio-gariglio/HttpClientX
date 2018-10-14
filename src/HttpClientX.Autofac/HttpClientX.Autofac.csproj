@@ -1,6 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>1.1.0</Version>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Fabio Gariglio</Authors>
+    <Company />
+    <Product />
+    <PackageTags>http web client extension test composable autofac ioc</PackageTags>
+    <RepositoryType>github</RepositoryType>
+    <RepositoryUrl>https://github.com/fabio-gariglio/HttpClientX</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/fabio-gariglio/HttpClientX</PackageProjectUrl>
+    <Description>HttpClientX message handler factory besed on Autofac.</Description>    
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\HttpClientX\HttpClientX.csproj" />

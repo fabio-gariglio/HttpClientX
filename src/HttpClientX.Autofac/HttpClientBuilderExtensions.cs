@@ -4,9 +4,9 @@ namespace HttpClientX.Autofac
 {
     public static class HttpClientBuilderExtensions
     {
-        public static HttpClientBuilder UseAutofac(this HttpClientBuilder builder, ContainerBuilder containerBuilder)
+        public static HttpClientBuilder UseAutofac(this HttpClientBuilder builder, IComponentContext context)
         {
-            var httpMessageHandlerFactory = new AutofacHttpMessageHandlerFactory(containerBuilder);
+            var httpMessageHandlerFactory = new AutofacHttpMessageHandlerFactory(context);
             
             return builder.UseHandlerFactory(httpMessageHandlerFactory);
         }
