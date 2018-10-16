@@ -52,6 +52,32 @@ DotNet CLI:
 dotnet add package HttpClientX
 ```
 
+## Anonymous message handler
+
+Sometimes may be useful to specify anonymoys HTTP message handlers therefore without need to implement the `HttpMessageHandler` abstract class. Anonymous message handlers can be defined inline as delegates. An anonymous message handler must respect the following signature:
+
+```cs
+public delegate Task<HttpResponseMessage> AnonymousMessageHandler( // Returns an HTTP response
+  Func<Task<HttpResponseMessage>> nextHandler,                     // Delegate to the next message handler
+  HttpRequestMessage request,                                      // Incoming HTTP request
+  CancellationToken cancellationToken                              // Cancellation token
+);
+```
+
+Following is an example of an anonymous message handler that returns a predefined response when the request URI matches a test query string:
+
+```cs
+var httpClient = new HttpClientBuilder()
+    .Use((handler, request, token) =>
+    {
+        return request.RequestUri.Query.Contains("test=true")
+            ? Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK))
+            : handler();
+    })
+    .Build();
+```
+
+
 ## Autofac
 
 [Autofac](https://autofac.org/) is a well established Inversion of Control container for .Net. Is possible to use Autofac as HTTP message handler factory so that any service registered in the container can be injected as message handler dependency.
@@ -105,7 +131,7 @@ public class HostModule : Module
   {
     var httpClient = new HttpClientBuilder()
         .UseAutofac(context)
-        .Use<CircuitBreakerHandler>(circuitBreakerPolicy)
+        .Use<CircuitBreakerHandler>()
         .Use<NLogRequestResponseLoggerHandler>()
         .Build(); 
         
