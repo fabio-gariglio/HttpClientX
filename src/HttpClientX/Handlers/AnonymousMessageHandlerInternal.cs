@@ -6,16 +6,16 @@ namespace HttpClientX.Handlers
 {
     internal class AnonymousMessageHandlerInternal : DelegatingHandler
     {
-        private readonly AnonymousMessageHandler _anonymousMessageHandler;
+        private readonly AnonymousMessageHandlerDelegate _anonymousMessageHandler;
 
-        public AnonymousMessageHandlerInternal(HttpMessageHandler nextHandler, AnonymousMessageHandler anonymousMessageHandler) : base(nextHandler)
+        public AnonymousMessageHandlerInternal(HttpMessageHandler nextHandler, AnonymousMessageHandlerDelegate anonymousMessageHandler) : base(nextHandler)
         {
             _anonymousMessageHandler = anonymousMessageHandler;
         }
 
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            return _anonymousMessageHandler(() => base.SendAsync(request, cancellationToken), request, cancellationToken);
+            return _anonymousMessageHandler(base.SendAsync, request, cancellationToken);
         }
     }
 }
