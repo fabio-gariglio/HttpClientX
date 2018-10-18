@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using HttpClientX.Handlers;
 using HttpClientX.Tests.Handlers.Tests;
@@ -18,7 +19,7 @@ namespace HttpClientX.Tests.Handlers
                 {
                     request.Properties["intercepted"] = true;
                     
-                    return handler();
+                    return handler(request, token);
                 })
                 .Use<StubHandler>()
                 .Build();
